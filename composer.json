@@ -1,0 +1,17 @@
+{
+    "name": "kothman/equipment-reservation-system",
+    "description": "A system for managing equipment reservations and requests",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Kothman\\ERS\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Morgan Kothman",
+            "email": "abkothman@gmail.com"
+        }
+    ],
+    "require": {}
+}
