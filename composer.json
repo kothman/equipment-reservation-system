@@ -4,7 +4,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Kothman\\ERS\\": "src/"
+            "Kothman\\ERS\\": ["src/", "src/lib/", "src/controllers", "src/models"]
         }
     },
     "authors": [

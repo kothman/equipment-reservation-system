@@ -16,7 +16,6 @@ namespace Kothman\ERS;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // For debugging
-error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 // Get the entity manager object from 'config/db.php'
@@ -28,7 +27,7 @@ $renderer = require_once __DIR__ . '/../config/twig.php';
 /**
  * Get the Router object.
  **/
-$router = new Router(__DIR__ . '/../config/routes.php');
+$router = require_once __DIR__ . '/../config/routes.php';
 
 /**
  * Create the app instance, and pass it anything it might need to handle the incoming request.
