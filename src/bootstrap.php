@@ -9,6 +9,9 @@
  */
 namespace Kothman\ERS;
 
+// 'use' is a convenient way to call \Dotenv\Dotenv::createImmutable, without typing out the full namespace.
+use Dotenv\Dotenv;
+
 /**
  * "/vendor/autoload.php" should always be included immediately after the namespace delcaration
  * (if any) in each PHP file to ensure libraries and local classes are all imported.
@@ -17,6 +20,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 // For debugging
 ini_set('display_errors', 'On');
+
+// Load .env variables
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 // Get the entity manager object from 'config/db.php'
 $entityManager = require_once __DIR__ . '/../config/db.php';
@@ -35,9 +42,10 @@ $router = require_once __DIR__ . '/../config/routes.php';
  * responsibilities separate. The app generally shouldn't handle setup of objects requiring configuration.
  */
 $app = new App($router, $entityManager, $renderer);
-/** Finally, call App::run() to handle the server request, after setup is complete.*/
+/** Finally, call App::dispatch
+  () to handle the server request, after setup is complete.*/
 $app->dispatch();
 
 /**
- * Don't end the file with the closing tag ?> so that there is not any trailing whitespace or newlines.
+ * Don't end the file with the closing tag ?> so that there aren't any trailing whitespace or newlines.
  */

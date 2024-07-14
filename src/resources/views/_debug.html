@@ -1,0 +1,29 @@
+<div id="debug-container">
+    <div id="debug">
+	<div id="debug-contents-container">
+	    <div id="debug-contents">
+		<pre>$_ENV => [</pre>
+		{% for key, value in env() %}
+		<pre class="ml-4">{{key}} => {{value}}</pre>
+		{% endfor %}
+		<pre>];</pre>
+		<hr>
+		<pre>$GLOBALS => [</pre>
+		{% for key, value in _debug_globals() %}
+		<pre class="ml-4 {{ is_array(value) ? 'array' : 'object' }}">${{key}} => [</pre>
+		{% if is_array(value) %}
+		{% for nestedKey, nestedValue in value %}
+		<pre class="ml-8 collapsible">{{nestedKey}} => {{ _debug_var_dump(nestedValue) }}</pre>
+		{% endfor %}
+		{% else %}
+		<pre class="ml-8 collapsible">{{_debug_var_dump(value)}}</pre>
+		{% endif %}
+		<pre class="ml-4 {{ is_array(value) ? 'array' : 'object' }}">];</pre>
+		{% endfor %}
+		<pre>];</pre>
+	    </div>
+	</div>
+    </div>
+    <a href="#dismiss-debug" id="dismiss-debug"></a>
+    <a href="#debug" id="open-debug"></a>
+</div>

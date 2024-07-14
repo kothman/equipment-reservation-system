@@ -1,0 +1,35 @@
+// https://stackoverflow.com/questions/58069059/dynamic-spacing-classes-with-sass
+@mixin generate($prefix, $property) {
+    // List of sizes to generate for given css $property
+    $sizes: [0, .25, .5, .75, 1, 1.5, 2, 3, 4, 6, 8];
+    // $property value unit type, affixed to the end of the size
+    $spacing: 1rem;
+
+    // Loop through each size, and output the corresponding classname and rule
+    @for $i from 1 through length($sizes) {
+	// get size from current index (sass array indexing?)
+	$size: nth($sizes, $i);
+	// create the rule
+	.#{$prefix}-#{$i - 1} {
+	    #{$property}: $spacing * $size;
+	}
+    }
+}
+
+$rules: [
+    [m, margin],
+    [ml, margin-left],
+    [mr, margin-right],
+    [mt, margin-top],
+    [mb, margin-bottom],
+
+    [p, padding],
+    [pl, padding-left],
+    [pr, padding-right],
+    [pt, padding-top],
+    [pb, padding-bottom]
+];
+
+@each $rule in $rules {
+    @include generate(nth($rule, 1), nth($rule, 2));
+}

@@ -7,6 +7,6 @@ namespace Kothman\ERS;
 class Controller extends BaseController {
 
     public function index() {
-        return 0;
+        return [];
     }
 }
