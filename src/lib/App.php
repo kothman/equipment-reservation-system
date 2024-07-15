@@ -33,6 +33,7 @@ class App {
     public function dispatch(): void {
         $data = null;
         $route = $this->router->getRoute($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+        $_ENV['route'] = $route;
         $data = $this->_dispatchController($route);
         echo $this->renderer->render($route->getView(), $data);
         // echo '<pre>', $_SERVER['REQUEST_URI'], '<br', var_dump($route), '</pre>';

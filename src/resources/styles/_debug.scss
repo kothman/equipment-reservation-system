@@ -1,121 +1,208 @@
-#debug {    
-    /* Show the inner modal when the debug button is active */
-    #debug-contents-container {
-	opacity: 0;
-	z-index: -1;
-	background-color: #fff;
-	border-top: 1px solid #fff;
-	transition: all .25s ease-in;
-	position: fixed;
-	bottom: 0;
-	left: 0;
+#debug-container {
+    div, & {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
-	height: 0rem;
-	padding: 0rem 0rem;
-	overflow-y: hidden;
-	text-align: left;
-	
-	#debug-contents {
-	    height: 100%;
-	    width: 100%;
-	    padding: 1rem 1rem;
-	    overflow-y: scroll;
-	    overflow-x: hidden;
+	max-width: 100%;
+    }
+    
+    #debug {
+	/* Show the inner modal when the debug button is active */
+	#debug-contents-container {
+	    opacity: 0;
+	    z-index: -1;
+	    background-color: #fff;
+	    border-top: 1px solid #fff;
 	    transition: all .25s ease-in;
-
-	    pre {
-		text-wrap: pretty;
-		line-height: 1.5rem;
-		border: 1px solid black;
-		padding: .5rem;
-		&.object {
-		    cursor: pointer;
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 0rem;
+	    padding: 0rem 0rem;
+	    overflow-y: hidden;
+	    text-align: left;
+	    
+	    #debug-contents {
+		height: 100%;
+		width: 100%;
+		padding: 1rem 1rem;
+		overflow-y: scroll;
+		transition: all .25s ease-in;
+		display: flex;
+		flex-direction: column;
+		button {
+		    border-radius: 0;
+		    border: 1px solid black;
 		}
-		&.collapsible {
-		    cursor: pointer;
-		    max-height: 4rem;
-		    overflow: scroll;
+		pre, .pre {
+		    max-width: 100%;
+		    width:100%;
+		}
+		#globals-label {
 		    border: 1px solid black;
 		    padding: .5rem;
-		    border-left: 1rem solid black;
+		}
+		#globals-container {
+		    padding-left: 1rem;
+		    display: flex;
+		    flex-direction: column;
+		    align-items: flex-start;
+		    width: 100%;
+
+		    .globals-key {
+			display: flex;
+			flex-direction: row;
+			border-top: none;
+			padding: .5rem;
+			width: 100%;
+		    }
+		    .object-container {
+			padding-left: 2rem;
+			.object-data {
+			    overflow-y: scroll;
+			}
+			&:last-child .object-data {
+			    border-bottom: 1px solid black;
+			}
+		    }
+		    .object {border-top: 1px solid black; }
+		    
+		    .expandable-on-click-label + .expandable + .globals-key { border-top: 1px solid black; }
+		    .expandable-on-click-label {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+			cursor: pointer;
+			transition: .25s all ease-in;
+			&:hover {
+			    background-color: #FFF;
+			}
+		    }
+		    .expandable {
+			display: flex;
+			flex-direction: column;
+			max-height: 4rem;
+			overflow-y: hidden;
+			transition: .25s all ease-in;
+			width: 100%;
+			padding-left: 2rem;
+			& > button {
+			    border-top: none;
+			}
+		    }
+		    .expandable-on-click-label:active + .expandable, .expandable-on-click-label:focus + .expandable, .expandable:active, .expandable:focus {
+			max-height: 100rem;
+			overflow-y: scroll;
+		    }
+		    .pre, pre {
+			width: 100%;
+			text-align: left;
+			border-top: none;
+			text-wrap: pretty;
+		    }
+		    .pre:last-child, pre:last-child {
+			border-bottom: none;
+		    }
+		    .pre:not(.xdebug-var-dump), pre:not(.xdebug-var-dump) {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			unicode-bidi: isolate;
+			white-space: pre;
+			text-wrap: pretty;
+			line-height: 1.5rem;
+			padding: .5rem;
+			width: 100%;
+		    }
 		}
 	    }
 	}
-    }
-    &:focus, &:target {
-	cursor: auto;
-	border: none !important;
-	background-image: none !important;
-	box-shadow: none !important;
-	background-color: #fff !important;
-	
-	#debug-contents-container {
-	    height: 16rem;
-	    max-height: 100vh;
-	    opacity: 1;
-	    z-index: 99999;
-	    background-color: #eee;
-	    border-top: 1px solid black;
+	/* The magic to make the modal expand when clicking on the link (:target) */
+	&:focus, &:target {
+	    cursor: auto;
+	    border: none !important;
+	    background-image: none !important;
+	    box-shadow: none !important;
+	    background-color: #fff !important;
+
+	    #debug-contents-container {
+		height: 30rem;
+		max-height: 100vh;
+		opacity: 1;
+		z-index: 99999;
+		background-color: #eee;
+		border-top: 1px solid black;
+	    }
 	}
     }
-}
 
-#open-debug {
-    width: 2.5rem;;
-    height: 2.5rem;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-width: 1px;
-    border-bottom: 0px;
-    border-right: 0px;
-    border-style: inset;
-    border-color: black;
-    border-radius: 100%;
-    box-shadow: 1px 1px 1px 1px black;
-    z-index: 9999;
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background-image: url('/icons/bug.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 1.5rem;
-    background-color: #fefefe;
-    cursor: pointer;
-    transition: all .25s ease-out;
-
-    &:hover {
-	box-shadow: 1px 1px 4px 1px black;
-	background-color: #efefef;
-    }
-}
-
-/* This is actually the #dismiss-debug section, but it's less code to start with #debug */
-#debug {
-    /* visible */
-    &:focus + #dismiss-debug, &:target + #dismiss-debug {
-	z-index: 9999999;
-	margin-bottom: 12.5rem;
-	opacity: 100%;
-	transition: all .25s ease-out;
-    }
-    /* hidden + default styling */
-    & + #dismiss-debug {
-	display: block;
-	opacity: 0%;
-	width: 1.5rem;
-	height: 1.5rem;
-	margin-bottom: 0em;
-	z-index: -1;
+    #open-debug {
+	width: 2.5rem;;
+	height: 2.5rem;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-width: 1px;
+	border-bottom: 0px;
+	border-right: 0px;
+	border-style: inset;
+	border-color: black;
+	border-radius: 100%;
+	box-shadow: 1px 1px 1px 1px black;
+	z-index: 9999;
 	position: fixed;
 	bottom: 1rem;
 	right: 1rem;
-	background-image: url('/icons/x-square.svg');
+	background-image: url('/icons/bug.svg');
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: cover;
-	background-color: #fff;
+	background-size: 1.5rem;
+	background-color: #fefefe;
 	cursor: pointer;
 	transition: all .25s ease-out;
+	&:hover {
+	    box-shadow: 1px 1px 4px 1px black;
+	    background-color: #efefef;
+	}
+    }
+
+    /* This is actually the #dismiss-debug section, but it's less code to start with #debug */
+    #debug {
+	/* visible */
+	&:focus #dismiss-debug, &:target #dismiss-debug {
+	    z-index: 9999999;
+	    opacity: 100%;
+	    transition: all .25s ease-out;
+	}
+	/* hidden + default styling */
+	#dismiss-debug {
+	    display: block;
+	    opacity: 0%;
+	    width: 2.5rem;
+	    height: 2.5rem;
+	    margin-bottom: 0em;
+	    z-index: -1;
+	    position: fixed;
+	    top: 1rem;
+	    right: 1rem;
+	    border-top: 1px solid black;
+	    border-left: 1px solid black;
+	    border-right: 0px;
+	    border-bottom: 0px;
+	    box-shadow: 1px 1px 1px 1px black;
+	    border-radius: 100%;
+	    background-image: url('/icons/x.svg');
+	    background-repeat: no-repeat;
+	    background-position: center;
+	    background-size: 1.5rem;
+	    background-color: #fefefe;
+	    cursor: pointer;
+	    transition: all .25s ease-out;
+	    &:hover {
+		box-shadow: 1px 1px 4px 1px black;
+		background-color: #efefef;
+	    }
+	}
     }
 }

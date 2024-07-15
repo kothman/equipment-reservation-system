@@ -1,29 +1,31 @@
+{% set globals = _debug_globals() %}
 <div id="debug-container">
-    <div id="debug">
-	<div id="debug-contents-container">
-	    <div id="debug-contents">
-		<pre>$_ENV => [</pre>
-		{% for key, value in env() %}
-		<pre class="ml-4">{{key}} => {{value}}</pre>
-		{% endfor %}
-		<pre>];</pre>
-		<hr>
-		<pre>$GLOBALS => [</pre>
-		{% for key, value in _debug_globals() %}
-		<pre class="ml-4 {{ is_array(value) ? 'array' : 'object' }}">${{key}} => [</pre>
-		{% if is_array(value) %}
-		{% for nestedKey, nestedValue in value %}
-		<pre class="ml-8 collapsible">{{nestedKey}} => {{ _debug_var_dump(nestedValue) }}</pre>
-		{% endfor %}
-		{% else %}
-		<pre class="ml-8 collapsible">{{_debug_var_dump(value)}}</pre>
-		{% endif %}
-		<pre class="ml-4 {{ is_array(value) ? 'array' : 'object' }}">];</pre>
-		{% endfor %}
-		<pre>];</pre>
-	    </div>
-	</div>
-    </div>
+<!-- Whitespace is very important in this file, please don't add newlines willy nilly -->
+  <div id="debug">
     <a href="#dismiss-debug" id="dismiss-debug"></a>
-    <a href="#debug" id="open-debug"></a>
+    <div id="debug-contents-container">
+      <div id="debug-contents">
+	<pre id="globals-label">$GLOBALS [{{ array_length(globals) }}]</pre>
+	<div id="globals-container">
+	  {% for key, value in globals %}
+	  <button class="globals-key {{ is_array(value) ? 'array' : 'object expandable-on-click-label' }} {{ is_array(value) and array_length(value) > 1 ? 'expandable-on-click-label' : '' }}">
+	    ${{ key }} {{ is_array(value) ? '[' ~ array_length(value) ~ ']' : '' }}
+	    {% if not is_array(value) or (is_array(value) and array_length(value) > 1) %}<img src="icons/plus-square.svg" alt="plus symbol" >{% endif %}
+	  </button>
+	    {% if is_array(value) %}
+	      <div class="array-data expandable">
+		{% for nestedKey, nestedValue in value %}
+		  <button class=" pre nested-global">"{{ nestedKey }}" => {{ nestedValue | json_encode(constant('JSON_UNESCAPED_SLASHES')) }}</button>
+		{% endfor %}
+	      </div>
+	      {% else %}
+	      <div class="object-container expandable">
+		<button class="nested-global object-data pre">{{ dump(value) }}</button></div>
+	    {% endif %}
+	  {% endfor %}
+	</div><!-- #globals-container -->
+      </div>
+    </div>
+  </div>
+  <a href="#debug" id="open-debug"></a>
 </div>

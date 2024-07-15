@@ -16,7 +16,8 @@ class Router {
     
     protected $routes = [];
     protected $status404;
-
+    protected $currentRoute;
+    
     public function __construct() {
         $this->status404 = new Route('*', '404', ErrorController::class, 'index', '404.html');        
     }
@@ -24,9 +25,11 @@ class Router {
     public function getRoute(string $queryString, string $requestMethod): Route {
         foreach($this->routes as $route) {
             if($route->matchesPattern($queryString) && $route->matchesMethod($requestMethod)) {
+                $this->currentRoute = $route;
                 return $route;
             }
         }
+        $this->currentRoute = $this->status404;
         return $this->status404;
     }
     

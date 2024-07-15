@@ -4,3 +4,7 @@ html, body, #content {
     z-index: 0;
     position: relative;
 }
+#content {
+    display: flex;
+    flex-direction: column;
+}

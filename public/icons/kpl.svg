@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 56.951 56.923" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="linear-gradient" x1="58.16" y1="81.47" x2="4.09" y2="33.11" gradientTransform="matrix(1 0 0 -1 -.07 83.8)" gradientUnits="userSpaceOnUse">
+      <stop offset="0.01" stop-color="#0099d8"/>
+      <stop offset="0.04" stop-color="#009ad5"/>
+      <stop offset="0.06" stop-color="#009ccb"/>
+      <stop offset="0.08" stop-color="#00a0ba"/>
+      <stop offset="0.09" stop-color="#00a6a2"/>
+      <stop offset="0.1" stop-color="#00a79d"/>
+      <stop offset="0.2" stop-color="#62bb46"/>
+      <stop offset="0.26" stop-color="#91c83d"/>
+      <stop offset="0.28" stop-color="#a6ce39"/>
+      <stop offset="0.3" stop-color="#b6d52f"/>
+      <stop offset="0.35" stop-color="#dee415"/>
+      <stop offset="0.38" stop-color="#f6ee06"/>
+      <stop offset="0.4" stop-color="#fff200"/>
+      <stop offset="0.53" stop-color="#febc11"/>
+      <stop offset="0.63" stop-color="#f58220"/>
+      <stop offset="0.71" stop-color="#f05329"/>
+      <stop offset="0.85" stop-color="#ed1b2f"/>
+      <stop offset="0.93" stop-color="#c62f63"/>
+      <stop offset="0.98" stop-color="#b4387b"/>
+    </linearGradient>
+    <style>.cls-1{fill:#231f20}</style>
+  </defs>
+  <path fill="url(#linear-gradient)" d="M.03 0h57.5v57.1H.03z"/>
+  <path class="cls-1" d="M39.8 9.9c6.9 5.8 10.7 13.3 8.7 19-2.6 7.6-13.9 9.3-25.4 3.8S4.5 16.7 7 9.1a10.15 10.15 0 0 1 6.7-6.2v-.1C7.6 3.8 2.5 7 .8 12.2c-3.5 10.5 5.9 24.9 21 33.4 15.3 8.5 30.9 5.8 34.8-4.8 3.5-9.6-2.4-20.4-16.8-30.9z" transform="matrix(1, 0, 0, 1, -0.07000000774860382, -0.20000000298023224)"/>
+</svg>

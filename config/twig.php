@@ -30,6 +30,12 @@ $twig = new \Twig\Environment($loader, $loaderSettings);
 // Register custom extension to provide access functions for variables like $_GLOBALS and $_ENV
 $twig->addExtension(new TwigExtension());
 
+// Include debugging extension if APP_DEBUG is true
+// @todo replace this check for debug with a standardized function call
+if ($_ENV['APP_DEBUG'] == 'true') {
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
+}
+
 /** example usage:
  *      echo $twig->render('index.html', ['name' => 'Fabien']);
  * The first variable is the template file, and the second variable is an array (aka a map) of key/value pairs.

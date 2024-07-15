@@ -1,0 +1,8 @@
+$sizes: [ 4rem, 3rem, 2rem, 1.5rem, 1.25rem, 1rem ];
+@for $i from 1 through 6 {
+    h#{$i} {
+	font-size: nth($sizes, $i);
+	line-height: nth($sizes, $i);
+	margin-bottom: nth($sizes, $i) / 4;
+    }
+}
