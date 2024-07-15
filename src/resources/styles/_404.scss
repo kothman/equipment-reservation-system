@@ -2,6 +2,9 @@
 .error-page {
     padding: 4rem;
     height: 100%;
+    max-width: 1000px;
+    margin: auto;
+    
     @media (max-width: $mobile-max-width) {
 	padding: 1rem;
     }
