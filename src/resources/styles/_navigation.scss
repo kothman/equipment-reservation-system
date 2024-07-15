@@ -1,24 +1,36 @@
+@use 'variables' as *;
+
 .navbar {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid black;
     box-shadow: 1px 1px 1px 1px lightgrey;
+
+    @media (max-width: $mobile-max-width) {
+	flex-direction: column;
+    }
+    
     .navbar-title {
 	font-size: 2rem;
 	line-height: 2rem;
 	white-space: pre-line;
 	height: 100%;
 
+	@media (max-width: $mobile-max-width) {
+	    width: 100%;
+	    text-align: center;
+	}
 	/* Transition Effects for the title */
 	a {
 	    height: 100%;
 	    background-color: #ffffff;
 	    transition: .15s all ease-in;
-	    border-right: 1px solid black;
+	    @media (min-width: $mobile-min-width) {
+		border-right: 1px solid black;
+	    }
 	    &:hover {
 		background-color: #fafafa;
 	    }
@@ -27,15 +39,23 @@
     .navbar-items-container {
 	display: flex;
 	flex-direction: row;
-	
+
+	@media (max-width: $mobile-max-width) {
+	    flex-direction: column;
+	    align-items: center;
+	}	
 	.navbar-item {
 	    border: 1px solid black;
 	    box-shadow: 1px 1px 1px 1px lightgrey;
 	    transition: .15s box-shadow ease-in;
-	    &:not(:first-child) {
-		margin-left: 1rem;
+	    @media (max-width: $mobile-max-width) {
+		margin-bottom: 1rem;
 	    }
-
+	    @media (min-width: $mobile-min-width) {
+		&:not(:first-child) {
+		    margin-left: 1rem;
+		}
+	    }
 	    &:hover {
 		box-shadow: 1px 1px 1px 1px grey;
 	    }
