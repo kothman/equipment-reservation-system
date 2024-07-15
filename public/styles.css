@@ -1,3 +1,6 @@
+/**
+ * This is the SCSS file, which includes all the others.
+ */
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -544,12 +547,16 @@ h6 {
 .navbar {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   width: 100%;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid black;
   box-shadow: 1px 1px 1px 1px lightgrey;
+}
+@media (max-width: 680px) {
+  .navbar {
+    flex-direction: column;
+  }
 }
 .navbar .navbar-title {
   font-size: 2rem;
@@ -558,11 +565,21 @@ h6 {
   height: 100%;
   /* Transition Effects for the title */
 }
+@media (max-width: 680px) {
+  .navbar .navbar-title {
+    width: 100%;
+    text-align: center;
+  }
+}
 .navbar .navbar-title a {
   height: 100%;
   background-color: #ffffff;
   transition: 0.15s all ease-in;
-  border-right: 1px solid black;
+}
+@media (min-width: 681px) {
+  .navbar .navbar-title a {
+    border-right: 1px solid black;
+  }
 }
 .navbar .navbar-title a:hover {
   background-color: #fafafa;
@@ -571,13 +588,26 @@ h6 {
   display: flex;
   flex-direction: row;
 }
+@media (max-width: 680px) {
+  .navbar .navbar-items-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .navbar .navbar-items-container .navbar-item {
   border: 1px solid black;
   box-shadow: 1px 1px 1px 1px lightgrey;
   transition: 0.15s box-shadow ease-in;
 }
-.navbar .navbar-items-container .navbar-item:not(:first-child) {
-  margin-left: 1rem;
+@media (max-width: 680px) {
+  .navbar .navbar-items-container .navbar-item {
+    margin-bottom: 1rem;
+  }
+}
+@media (min-width: 681px) {
+  .navbar .navbar-items-container .navbar-item:not(:first-child) {
+    margin-left: 1rem;
+  }
 }
 .navbar .navbar-items-container .navbar-item:hover {
   box-shadow: 1px 1px 1px 1px grey;
@@ -599,14 +629,31 @@ h6 {
   padding: 4rem;
   height: 100%;
 }
+@media (max-width: 680px) {
+  .error-page {
+    padding: 1rem;
+  }
+}
 .error-page h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
+@media (max-width: 680px) {
+  .error-page h1 {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 .error-page h1 img {
   height: 4rem;
   width: 4rem;
+}
+@media (max-width: 680px) {
+  .error-page h1 img {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
 }
 
 #debug-container {
