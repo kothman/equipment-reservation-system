@@ -50,6 +50,8 @@
 	    transition: .15s box-shadow ease-in;
 	    @media (max-width: $mobile-max-width) {
 		margin-bottom: 1rem;
+		width: 100%;
+		text-align: center;
 	    }
 	    @media (min-width: $mobile-min-width) {
 		&:not(:first-child) {
