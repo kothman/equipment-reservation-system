@@ -19,7 +19,9 @@ class App {
      * @param Router $router
      * @param EntityManager $entityManager
      */
-    public function __construct(protected Router $router, protected EntityManager $entityManager, protected \Twig\Environment $renderer) {
+    public function __construct(protected Router $router,
+                                protected EntityManager $entityManager,
+                                protected \Twig\Environment $renderer) {
 
     }
 
@@ -31,9 +33,18 @@ class App {
      * @return void
      */
     public function dispatch(): void {
+        // Data to be stored by controller
         $data = null;
+        
         $route = $this->router->getRoute($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $_ENV['route'] = $route;
+        
+        // After getting the route, immediately run any beforeMiddleware
+        $this->router->handleBefore($this);
+
+        // Check for redirects set by middleware
+        
+        
         // Ensure a view exists for any given route. When not in dev mode,
         // errors will be caught and logged.
         if ( !file_exists($viewFullPath = __DIR__ . '/../resources/views/' . $route->getView())) {
@@ -72,5 +83,13 @@ class App {
         echo "<pre>".htmlentities(print_r($_POST, true))."</pre>";
         echo "<pre>".htmlentities(print_r($_REQUEST, true))."</pre>";
         echo "<pre>".htmlentities(print_r($_SESSION, true))."</pre>";
+    }
+
+    public function db(): EntityManager {
+        return $this->entityManager;
+    }
+
+    public function redirect(string $relativePath) {
+        
     }
 }

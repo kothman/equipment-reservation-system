@@ -21,6 +21,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // For debugging
 ini_set('display_errors', 'On');
 
+// Start a session, or throw an error
+if (session_status() !== PHP_SESSION_ACTIVE &&
+    !session_start())
+    throw new \Error('Unable to start session.');
+
 // Load .env variables
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
@@ -45,6 +50,10 @@ $app = new App($router, $entityManager, $renderer);
 /** Finally, call App::dispatch
   () to handle the server request, after setup is complete.*/
 $app->dispatch();
+
+// End the session
+if (!session_write_close())
+    throw new \Error('Unable to close session');
 
 /**
  * Don't end the file with the closing tag ?> so that there aren't any trailing whitespace or newlines.

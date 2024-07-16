@@ -8,7 +8,8 @@ class Router {
     public function __construct(protected $routes = [],
                                 protected Route|null $status404 = null,
                                 protected Route|null $currentRoute = null,
-                                protected string $groupPrefix = '') {
+                                protected string $groupPrefix = '',
+                                protected array $beforeMiddleware = []) {
         $this->status404 = new Route('*', '404', ErrorController::class, 'index', '404.html');        
     }
 
@@ -35,10 +36,10 @@ class Router {
       * @return void
       */
     public function match(string $requestMethod, string $pattern, string $controller, string $controllerMethod, string $view): void {
-        $this->routes[] = new Route($requestMethod, $this->groupPrefix . $pattern, $controller, $controllerMethod, $view);
+        $this->routes[] = $this->newRoute($requestMethod, $pattern, $controller, $controllerMethod, $view);
     }
 
-    public function group(string $prefix, \Closure $groupingCallback) {
+    public function prefix(string $prefix, \Closure $groupingCallback) {
         $this->setGroupPrefix($prefix);
         $groupingCallback();
         $this->unsetGroupPrefix($prefix);
@@ -51,8 +52,23 @@ class Router {
         $this->groupPrefix = '';
     }
 
+    public function before(string $pattern, \Closure $callback) {
+        $this->beforeMiddleware[] = ['pattern' => $pattern, 'callback'=> $callback];
+    }
+
+    public function handleBefore(App $app) {
+        foreach($this->beforeMiddleware as $middleware) {
+            if ($this->currentRoute->matchesPattern($middleware['pattern'])) {
+                $middleware['callback']($app);
+            }
+        }
+    }
+    
     public function set404(string $controller, string $controllerMethod, string $view): void {
         $this->status404 = new Route('*', '404', $controller, $controllerMethod, $view);
     }
 
+    private function newRoute(string $requestMethod, string $pattern, string $controller, string $controllerMethod, string $view): Route {
+        return new Route($requestMethod, $this->groupPrefix . $pattern, $controller, $controllerMethod, $view);
+    }
 }
