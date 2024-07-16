@@ -10,7 +10,7 @@
 	  {% for key, value in globals %}
 	  <button class="globals-key {{ is_array(value) ? 'array' : 'object expandable-on-click-label' }} {{ is_array(value) and array_length(value) > 1 ? 'expandable-on-click-label' : '' }}">
 	    ${{ key }} {{ is_array(value) ? '[' ~ array_length(value) ~ ']' : '' }}
-	    {% if not is_array(value) or (is_array(value) and array_length(value) > 1) %}<img src="icons/plus-square.svg" alt="plus symbol" >{% endif %}
+	    {% if not is_array(value) or (is_array(value) and array_length(value) > 1) %}<img src="/icons/plus-square.svg" alt="plus symbol" >{% endif %}
 	  </button>
 	    {% if is_array(value) %}
 	      <div class="array-data expandable">
