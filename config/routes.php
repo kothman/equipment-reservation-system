@@ -12,7 +12,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $router = new Router();
 
-$router->before('', function() { Middleware::auth(); });
+$router->before('/(\.*)', function() { Middleware::auth(); });
 
 $router->match('GET', '/', Controller::class, 'index', 'index.html');
 $router->match('GET', '/auth/login', Controller::class, 'index', 'index.html');

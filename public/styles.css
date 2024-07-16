@@ -496,11 +496,47 @@ table {
   padding-bottom: 8rem;
 }
 
+/* Default font */
+/* Colors */
+/* box-shadow */
+/* borders */
+/* Media query breakpoints */
+/**
+ * Taken from TailwindCSS
+ * https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE
+ */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
 html, body, #content {
   height: 100%;
   width: 100%;
   z-index: 0;
   position: relative;
+  font-family: ui-sans-serif;
 }
 
 #content {
@@ -550,8 +586,9 @@ h6 {
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 1px 1px lightgrey;
+  background-color: #a1a4ff;
+  box-shadow: 0px 0px 8px 2px rgba(85, 90, 242, 0.5);
+  border: #a1a4ff;
 }
 @media (max-width: 680px) {
   .navbar {
@@ -563,7 +600,14 @@ h6 {
   line-height: 2rem;
   white-space: pre-line;
   height: 100%;
+  background-color: #fff;
+  transition: 0.15s all ease-in;
+  border: 1px solid #a1a4ff;
   /* Transition Effects for the title */
+}
+.navbar .navbar-title:hover {
+  border: 1px solid #555af2;
+  box-shadow: 0px 0px 8px 2px #555af2;
 }
 @media (max-width: 680px) {
   .navbar .navbar-title {
@@ -573,20 +617,12 @@ h6 {
 }
 .navbar .navbar-title a {
   height: 100%;
-  background-color: #ffffff;
-  transition: 0.15s all ease-in;
-}
-@media (min-width: 681px) {
-  .navbar .navbar-title a {
-    border-right: 1px solid black;
-  }
-}
-.navbar .navbar-title a:hover {
-  background-color: #fafafa;
 }
 .navbar .navbar-items-container {
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 @media (max-width: 680px) {
   .navbar .navbar-items-container {
@@ -595,9 +631,10 @@ h6 {
   }
 }
 .navbar .navbar-items-container .navbar-item {
-  border: 1px solid black;
-  box-shadow: 1px 1px 1px 1px lightgrey;
-  transition: 0.15s box-shadow ease-in;
+  border: 1px solid #a1a4ff;
+  box-shadow: 0px 0px 8px 2px rgba(85, 90, 242, 0.5);
+  transition: 0.15s all ease-in;
+  background-color: #fff;
 }
 @media (max-width: 680px) {
   .navbar .navbar-items-container .navbar-item {
@@ -612,7 +649,8 @@ h6 {
   }
 }
 .navbar .navbar-items-container .navbar-item:hover {
-  box-shadow: 1px 1px 1px 1px grey;
+  border: 1px solid #555af2;
+  box-shadow: 0px 0px 8px 2px #555af2;
 }
 .navbar .navbar-items-container .navbar-item a {
   text-wrap: nowrap;
@@ -620,7 +658,7 @@ h6 {
 }
 .navbar .navbar-item a, .navbar .navbar-title a {
   text-decoration: none;
-  color: black;
+  color: #000;
   display: block;
 }
 .navbar .navbar-title a, .navbar .navbar-items-container {

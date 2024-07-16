@@ -1,2 +1,72 @@
+@use 'sass:color';
+
+/* Default font */
+$font-family-heading: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-family-subheading: ui-sans-serif;
+$font-family-text: ui-sans-serif;
+$font-family: $font-family-text;
+
+
+/* Colors */
+$periwinkle: #a1a4ff;
+$periwinkle-white: color.adjust($periwinkle, $whiteness: 35%);
+$periwinkle-light: color.adjust($periwinkle, $whiteness: 5%);
+$periwinkle-dark: color.adjust($periwinkle,  $blackness: 5%, $whiteness: -30%);
+$white: #fff;
+$lightgrey: #eee;
+$black: #000;
+
+/* box-shadow */
+$box-shadow-lightgrey: 1px 1px 1px 1px rgba($lightgrey, .25);
+$box-shadow-lightgrey-hover: 1px 1px 1px 1px rgba($lightgrey, .55);
+$box-shadow-periwinkle-dark: 0px 0px 8px 2px rgba($periwinkle-dark, .5);
+$box-shadow-periwinkle-dark-hover: 0px 0px 8px 2px rgba($periwinkle-dark, 1);
+
+/* borders */
+$border-lightgrey: 1px solid $lightgrey; 
+$border-periwinkle-light: 1px solid $periwinkle-light;
+$border-periwinkle: 1px solid $periwinkle;
+$border-periwinkle-dark: 1px solid $periwinkle-dark;
+$border-radius-default: 0;
+$border-radius-circle: 100%;
+
+/* Media query breakpoints */
 $mobile-max-width: 680px !default;
 $mobile-min-width: calc($mobile-max-width + 1px) !default;
+
+/**
+ * Taken from TailwindCSS
+ * https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE
+ */
+@keyframes spin {
+    to {
+	transform: rotate(360deg);
+    }
+}
+
+@keyframes ping {
+    75%,
+    100% {
+	transform: scale(2);
+	opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    50% {
+	opacity: 0.5;
+    }
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+	transform: translateY(-25%);
+	animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+
+    50% {
+	transform: none;
+	animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
