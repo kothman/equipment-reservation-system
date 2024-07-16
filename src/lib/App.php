@@ -34,16 +34,24 @@ class App {
         $data = null;
         $route = $this->router->getRoute($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
         $_ENV['route'] = $route;
+        // Ensure a view exists for any given route. When not in dev mode,
+        // errors will be caught and logged.
+        if ( !file_exists($viewFullPath = __DIR__ . '/../resources/views/' . $route->getView())) {
+            throw new \Error('File not found at ' . $viewFullPath);
+        }
         $data = $this->_dispatchController($route);
-        echo $this->renderer->render($route->getView(), $data);
-        // echo '<pre>', $_SERVER['REQUEST_URI'], '<br', var_dump($route), '</pre>';
-        // echo '<pre>', var_dump($data), '</pre>';
+        // Outputs the HTML for our webpage. This is the only echo statement that
+        // should be used when utilizing Twig templating.
+        echo $this->renderer->render($route->getView(), $data ?? []);
     }
     
     /**
      * Creates a new instance of the given controller, and returns the result of Controller::$controllerMethod
+     *
+     * @param Route $route The route specifying which controller and method should be dispatched.
+     * @returns mixed
      */
-    protected function _dispatchController(Route $route): mixed {
+    protected function _dispatchController(Route $route) {
         $controllerMethod = $route->getControllerMethod();
         $controller = $route->getController();
         return $controller->$controllerMethod();
