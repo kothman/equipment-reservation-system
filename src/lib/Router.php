@@ -4,27 +4,17 @@ namespace Kothman\ERS;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 class Router {
-    /**
-     * An array of all routes.
-     *
-     * Each route is an array of key/value pairs, in the following format:
-     * [ method => 'GET|POST|PATCH|PUT|DELETE|*',
-     *   pattern => '/route/[parameter]/[parameter2]',
-     *   handler => ExampleController::class,
-     *   view => 'index.html' ]
-     **/
     
-    protected $routes = [];
-    protected $status404;
-    protected $currentRoute;
-    
-    public function __construct() {
+    public function __construct(protected $routes = [],
+                                protected Route|null $status404 = null,
+                                protected Route|null $currentRoute = null,
+                                protected string $groupPrefix = '') {
         $this->status404 = new Route('*', '404', ErrorController::class, 'index', '404.html');        
     }
 
-    public function getRoute(string $queryString, string $requestMethod): Route {
+    public function getRoute(string $requestURI, string $requestMethod): Route {
         foreach($this->routes as $route) {
-            if($route->matchesPattern($queryString) && $route->matchesMethod($requestMethod)) {
+            if($route->matchesPattern($requestURI) && $route->matchesMethod($requestMethod)) {
                 $this->currentRoute = $route;
                 return $route;
             }
@@ -36,7 +26,6 @@ class Router {
      /**
       * This function is responsible for adding data to the array of routes, and trying to ensure
       * the route data is valid.
-      * See the  $routes variable for the data structure.
       *
       * @param string       $requestMethod     'GET|POST|PATCH|PUT|DELETE|*'
       * @param string       $pattern    '/route/[parameter]/[parameter2]'
@@ -46,7 +35,20 @@ class Router {
       * @return void
       */
     public function match(string $requestMethod, string $pattern, string $controller, string $controllerMethod, string $view): void {
-        $this->routes[] = new Route($requestMethod, $pattern, $controller, $controllerMethod, $view);
+        $this->routes[] = new Route($requestMethod, $this->groupPrefix . $pattern, $controller, $controllerMethod, $view);
+    }
+
+    public function group(string $prefix, \Closure $groupingCallback) {
+        $this->setGroupPrefix($prefix);
+        $groupingCallback();
+        $this->unsetGroupPrefix($prefix);
+    }
+
+    protected function setGroupPrefix(string $prefix) {
+        $this->groupPrefix = $prefix;
+    }
+    protected function unsetGroupPrefix(string $prefix) {
+        $this->groupPrefix = '';
     }
 
     public function set404(string $controller, string $controllerMethod, string $view): void {
